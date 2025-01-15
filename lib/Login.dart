@@ -1,41 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
-class login extends StatefulWidget {
-  const login({super.key});
+class Login extends StatefulWidget {
+  const Login({super.key});
 
   @override
-  State<login> createState() => _loginState();
+  State<Login> createState() => _LoginState();
 }
 
-class _loginState extends State<login> {
-
+class _LoginState extends State<Login> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-
   void _login() {
-    final username = usernameController.text;
-    final password = passwordController.text;
+    final username = usernameController.text.trim(); // Trimmed input
+    final password = passwordController.text.trim(); // Trimmed input
+
+    if (username.isEmpty || password.isEmpty) {
+      Get.snackbar(
+        'Error', // Title
+        'Username or password cannot be empty', // Message
+        snackPosition: SnackPosition.TOP,
+        backgroundColor: Colors.red.shade100, // Valid color
+        colorText: Colors.black,
+        margin: const EdgeInsets.all(10),
+      );
+      return;
+    }
 
     if (username == 'Loveraj' && password == '11242315') {
       Get.snackbar(
-        'Login',
-        'Successfully logged in',
+        'Login', // Title
+        'Successfully logged in', // Message
         snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.green.shade100,
         colorText: Colors.black,
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
       );
     } else {
       Get.snackbar(
-        'Error',
-        'Incorrect username or password',
+        'Error', // Title
+        'Incorrect username or password', // Message
         snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.red.shade100,
         colorText: Colors.black,
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
       );
     }
   }
@@ -44,21 +54,25 @@ class _loginState extends State<login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('login'),
+        title: const Text('Login'),
         actions: [
-          IconButton( onPressed: () async {
-            final selectedTime = await showTimePicker(
-              context: context,
-              initialTime: const TimeOfDay(hour: 10, minute: 00),
-              builder: (context, child) => MediaQuery(
-                data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
-                child: child!,
-              ),
-            );
-            if (selectedTime != null) {
-              print("Selected Time: ${selectedTime.format(context)}");
-            }
-          }, icon: FaIcon(Icons.access_time_rounded))
+          IconButton(
+            onPressed: () async {
+              final selectedTime = await showTimePicker(
+                context: context,
+                initialTime: const TimeOfDay(hour: 10, minute: 00),
+                builder: (context, child) => MediaQuery(
+                  data: MediaQuery.of(context)
+                      .copyWith(alwaysUse24HourFormat: false),
+                  child: child!,
+                ),
+              );
+              if (selectedTime != null) {
+                debugPrint("Selected Time: ${selectedTime.format(context)}");
+              }
+            },
+            icon: const FaIcon(Icons.access_time_rounded),
+          ),
         ],
       ),
       body: Center(
@@ -70,12 +84,12 @@ class _loginState extends State<login> {
             children: [
               TextField(
                 controller: usernameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Username',
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextField(
                 controller: passwordController,
                 obscureText: true,
@@ -84,20 +98,19 @@ class _loginState extends State<login> {
                 keyboardType: TextInputType.visiblePassword,
                 textInputAction: TextInputAction.done,
                 onEditingComplete: _login,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 24),
-              
+              const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: _login,
-                child: Text('login'),
+                child: const Text('Login'),
               ),
-              
-              SizedBox(height: 5,)
-            ]),
+              const SizedBox(height: 5),
+            ],
+          ),
         ),
       ),
     );

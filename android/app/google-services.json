@@ -12,7 +12,12 @@
           "package_name": "com.example.firebasseeee"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "227952045027-fukvge42h5s6qg2t28rerf0r1p457ilj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDExTZOPchelh5Tz_zOoXLBZTsADGpzmEw"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227952045027-fukvge42h5s6qg2t28rerf0r1p457ilj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "227952045027-c4pvtu31obpa0lc0sg169suttrrv38ic.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.firebasseeee"
+              }
+            }
+          ]
         }
       }
     }
