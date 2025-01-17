@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebasseeee/Files/home.dart';
+import 'package:firebasseeee/Login.dart';
 import 'package:firebasseeee/Output.dart';
+import 'package:firebasseeee/Student%20Attendence/homee.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -10,7 +13,7 @@ class FirstScreen extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  Future<void> Google() async {
+  Future<void> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
       if (googleUser == null) {
@@ -34,58 +37,89 @@ class FirstScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(title: Text("First Screen")),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(labelText: "Email"),
+      body: Container(
+        decoration: BoxDecoration(
+          //color: Color(0xff001513)
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(40),
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(40),
+              //color: Colors.white30
             ),
-            SizedBox(height: 16),
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: InputDecoration(labelText: "Password"),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                try {
-                  await auth.createUserWithEmailAndPassword(
-                    email: emailController.text.trim(),
-                    password: passwordController.text.trim(),
-                  );
-                  Get.snackbar("Success", "User Registered!");
-                } catch (e) {
-                  Get.snackbar("Error", e.toString());
-                }
-              },
-              child: Text("Register"),
-            ),
-            SizedBox(height: 16),
-            ElevatedButton(
-              onPressed:Google,
-              child: Text("Sign in with Google"),
-            ),
-            SizedBox(height: 16),
-            Row(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Already have an account? "),
-                InkWell(
-                  onTap: () {
-                    Get.to(() => SecondScreen());
-                  },
-                  child: Text(
-                    "Log in",
-                    style: TextStyle(color: Colors.blue),
+                TextField(
+                  controller: emailController,
+                  decoration: InputDecoration(labelText: "Email"),
+                ),
+                SizedBox(height: 14),
+                TextField(
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                      labelText: "Password",
+                      counterText: "Forgot Password?"
                   ),
                 ),
+                SizedBox(height: 14),
+                ElevatedButton(
+                  onPressed: () async {
+                    try {
+                      await auth.createUserWithEmailAndPassword(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                      );
+                      Get.snackbar(
+                        "Success",
+                        "User Registered",
+                        boxShadows: [BoxShadow(color: Color(0xFFA0F88F), blurRadius: 20)],
+                      );
+                    } catch (e) {
+                      Get.snackbar(
+                        "Error",
+                        "Fill The Details",
+                        boxShadows: [BoxShadow(color: Color(0xC7CC5858), blurRadius: 20)],
+                      );
+
+                    }
+                  },
+                  child: Text("Register"),
+                ), //Register Wala
+                SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: signInWithGoogle,
+                  child: Text("Sign in with Google"),
+                ), //Google Wala
+                SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () => Get.to(() => Home()),
+                  child: Text("Crud Operations"),
+                ),
+               /* Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Already have an account? "),
+                    InkWell(
+                      onTap: () {
+                        Get.to(() =>Login());
+                      },
+                      child: Text(
+                        "Log in",
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    ),
+                  ],
+                ),*/
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

@@ -21,6 +21,8 @@ dependencies:
   cloud_firestore: ^5.6.1
   cupertino_icons: ^1.0.8
   google_sign_in: ^6.2.2
+  random_string: ^2.3.1
+  fluttertoast: ^8.2.10
 
 dev_dependencies:
   flutter_test:

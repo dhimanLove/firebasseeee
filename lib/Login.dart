@@ -14,15 +14,15 @@ class _LoginState extends State<Login> {
   final TextEditingController passwordController = TextEditingController();
 
   void _login() {
-    final username = usernameController.text.trim(); // Trimmed input
-    final password = passwordController.text.trim(); // Trimmed input
+    final username = usernameController.text.trim();
+    final password = passwordController.text.trim();
 
     if (username.isEmpty || password.isEmpty) {
       Get.snackbar(
-        'Error', // Title
-        'Username or password cannot be empty', // Message
+        'Error',
+        'Username or password cannot be empty',
         snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.red.shade100, // Valid color
+        backgroundColor: Colors.red,
         colorText: Colors.black,
         margin: const EdgeInsets.all(10),
       );
@@ -31,8 +31,8 @@ class _LoginState extends State<Login> {
 
     if (username == 'Loveraj' && password == '11242315') {
       Get.snackbar(
-        'Login', // Title
-        'Successfully logged in', // Message
+        'Login',
+        'Successfully logged in',
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.green.shade100,
         colorText: Colors.black,
@@ -40,8 +40,8 @@ class _LoginState extends State<Login> {
       );
     } else {
       Get.snackbar(
-        'Error', // Title
-        'Incorrect username or password', // Message
+        'Error',
+        'Incorrect username or password',
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red.shade100,
         colorText: Colors.black,
@@ -55,25 +55,6 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login'),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              final selectedTime = await showTimePicker(
-                context: context,
-                initialTime: const TimeOfDay(hour: 10, minute: 00),
-                builder: (context, child) => MediaQuery(
-                  data: MediaQuery.of(context)
-                      .copyWith(alwaysUse24HourFormat: false),
-                  child: child!,
-                ),
-              );
-              if (selectedTime != null) {
-                debugPrint("Selected Time: ${selectedTime.format(context)}");
-              }
-            },
-            icon: const FaIcon(Icons.access_time_rounded),
-          ),
-        ],
       ),
       body: Center(
         child: Padding(
@@ -108,7 +89,6 @@ class _LoginState extends State<Login> {
                 onPressed: _login,
                 child: const Text('Login'),
               ),
-              const SizedBox(height: 5),
             ],
           ),
         ),
